@@ -1,0 +1,91 @@
+---
+title: "242 model"
+author: "Mariano Viz"
+date: "19/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(janitor)
+library(here)
+library(aomisc)
+library(broom)
+
+
+```
+
+
+
+
+# Read in data
+```{r}
+
+average <- read_csv("t12c7.csv") %>% 
+  clean_names() 
+
+optimal <- read_csv("t16c10.csv") %>% 
+  clean_names()
+
+cl_change <- read_csv("t22c7.csv") %>% 
+  clean_names()
+
+
+```
+
+
+
+# Logistic Regression
+
+## Average conditions:
+```{r}
+# Model:
+model_average <- drm(standarized_tfw_g_individual ~ day, fct = L.3(), data = average)
+
+# Outputs:
+summary(model_average)
+
+
+# Plot:
+plot(model_average, log="", main = "Logistic function")
+
+```
+
+## Optimal conditions:
+
+```{r}
+# Model:
+model_opt <- drm(standarized_tfw_g_individual ~ day, fct = L.3(), data = optimal)
+
+# Outputs:
+summary(model_opt)
+
+
+# Plot:
+plot(model_opt, log="", main = "Logistic function")
+
+```
+
+
+## Climate Change scenario:
+
+```{r}
+# Model:
+model_cl_change <- drm(standarized_tfw_g_individual ~ day, fct = L.3(), data = cl_change)
+
+# Outputs:
+summary(model_cl_change)
+
+
+# Plot:
+plot(model_cl_change, log="", main = "Logistic function")
+
+```
+
+
+
+
+
+
